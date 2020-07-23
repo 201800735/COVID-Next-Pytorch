@@ -1,61 +1,92 @@
 version: 0.2
 
+run-as: Linux-user-name
+
 env:
+  shell: shell-tag
   variables:
-    JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
+    key: "value"
+    key: "value"
   parameter-store:
-    LOGIN_PASSWORD: /CodeBuild/dockerLoginPassword
+    key: "value"
+    key: "value"
+  exported-variables:
+    - variable
+    - variable
+  secrets-manager:
+    key: secret-id:json-key:version-stage:version-id
+  git-credential-helper: no | yes
+
+proxy:
+  upload-artifacts: no | yes
+  logs: no | yes
 
 phases:
   install:
+    run-as: Linux-user-name
+    runtime-versions:
+      runtime: version
+      runtime: version
     commands:
-      - echo Entered the install phase...
-      - apt-get update -y
-      - apt-get install -y maven
+      - command
+      - command
     finally:
-      - echo This always runs even if the update or install command fails 
+      - command
+      - command
   pre_build:
+    run-as: Linux-user-name
     commands:
-      - echo Entered the pre_build phase...
-      - docker login –u User –p $LOGIN_PASSWORD
+      - command
+      - command
     finally:
-      - echo This always runs even if the login command fails 
+      - command
+      - command
   build:
+    run-as: Linux-user-name
     commands:
-      - echo Entered the build phase...
-      - echo Build started on `date`
-      - mvn install
+      - command
+      - command
     finally:
-      - echo This always runs even if the install command fails
+      - command
+      - command
   post_build:
+    run-as: Linux-user-name
     commands:
-      - echo Entered the post_build phase...
-      - echo Build completed on `date`
-
+      - command
+      - command
+    finally:
+      - command
+      - command
 reports:
-  arn:aws:codebuild:your-region:your-aws-account-id:report-group/report-group-name-1:
+  report-group-name-or-arn:
     files:
-      - "**/*"
-    base-directory: 'target/tests/reports'
-    discard-paths: no
-  reportGroupCucumberJson:
-    files:
-      - 'cucumber/target/cucumber-tests.xml'
-    discard-paths: yes
-    file-format: CucumberJson # default is JunitXml
+      - location
+      - location
+    base-directory: location
+    discard-paths: no | yes
+    file-format: JunitXml | NunitXml | CucumberJson | VisualStudioTrx | TestNGXml
 artifacts:
   files:
-    - target/messageUtil-1.0.jar
-  discard-paths: yes
+    - location
+    - location
+  name: artifact-name
+  discard-paths: no | yes
+  base-directory: location
   secondary-artifacts:
-    artifact1:
+    artifactIdentifier:
       files:
-        - target/artifact-1.0.jar
-      discard-paths: yes
-    artifact2:
+        - location
+        - location
+      name: secondary-artifact-name
+      discard-paths: no | yes
+      base-directory: location
+    artifactIdentifier:
       files:
-        - target/artifact-2.0.jar
-      discard-paths: yes
+        - location
+        - location
+      discard-paths: no | yes
+      base-directory: location
 cache:
   paths:
-    - '/root/.m2/**/*'
+    - path
+    - path
